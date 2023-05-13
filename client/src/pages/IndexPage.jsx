@@ -1,9 +1,7 @@
-import Header from "../components/Header";
-
 export default function IndexPage() {
   return (
     <div>
-        <Header />        
+        <p>This is the index page</p>
     </div>
   )
 }
