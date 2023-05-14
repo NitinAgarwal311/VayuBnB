@@ -1,28 +1,52 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function RegisterPage() {
+    const [name,setName] = useState("");
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const submitRegistration = async (event) => {
+        event.preventDefault();
+
+        const res = await axios.post("/register", {
+            name,
+            email,
+            password
+        });
+
+        if(res.status === 200) {
+            const data = await res.data;
+            console.log(data);
+        }
+    }
+
     return (
         <div className="mt-4 grow flex items-center justify-around">
             <div className="mb-64">
                 <p className="text-4xl text-center mb-4">Register</p>
-                <form className="mx-auto max-w-md">
+                <form className="mx-auto max-w-md" onSubmit={submitRegistration}>
                     <input
                         type="text"
                         name="name"
-                        id=""
                         placeholder="John Doe"
+                        value={name}
+                        onChange={e => {setName(e.target.value)}}
                     />
                     <input
                         type="email"
                         name="email"
-                        id=""
                         placeholder="your@email.com"
+                        value={email}
+                        onChange={e => {setEmail(e.target.value)}}
                     />
                     <input
                         type="password"
                         name="password"
-                        id=""
                         placeholder="Password"
+                        value={password}
+                        onChange={e => {setPassword(e.target.value)}}
                     />
                     <button className="primary">Login</button>
                 </form>

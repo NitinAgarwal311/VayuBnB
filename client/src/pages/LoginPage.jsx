@@ -1,6 +1,10 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function LoginPage() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
     return (
         <div className="mt-4 grow flex items-center justify-around">
             <div className="mb-64">
@@ -10,13 +14,17 @@ export default function LoginPage() {
                         type="email"
                         name="email"
                         id=""
+                        value={email}
                         placeholder="your@email.com"
+                        onChange={(e) => {setEmail(e.target.value)}}
                     />
                     <input
                         type="password"
                         name="password"
                         id=""
                         placeholder="Password"
+                        value={password}
+                        onChange={(e) => {setPassword(e.target.value)}}
                     />
                     <button className="primary">Login</button>
                 </form>
