@@ -48,7 +48,7 @@ export default function RegisterPage() {
                         value={password}
                         onChange={e => {setPassword(e.target.value)}}
                     />
-                    <button className="primary">Login</button>
+                    <button className="primary">Register</button>
                 </form>
                 <p className="text-center text-gray-400">
                     Already a member?{" "}
