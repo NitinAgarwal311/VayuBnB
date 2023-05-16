@@ -10,15 +10,16 @@ export default function RegisterPage() {
     const submitRegistration = async (event) => {
         event.preventDefault();
 
-        const res = await axios.post("/register", {
-            name,
-            email,
-            password
-        });
-
-        if(res.status === 200) {
-            const data = await res.data;
-            console.log(data);
+        try {
+            await axios.post("/register", {
+                name,
+                email,
+                password
+            });
+            alert("Registration successful. Now you can log in.")
+        }
+        catch (e) {
+            alert("Registration Failed. Please try again")
         }
     }
 
