@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 const User = require("./models/User");
 
 const bcryptSalt = bcrypt.genSaltSync(10);
@@ -11,6 +12,7 @@ const bcryptSalt = bcrypt.genSaltSync(10);
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use(
     cors({
@@ -68,6 +70,22 @@ app.post("/login", async (req, res) => {
         }
     } catch (e) {
         res.status(500).json("Some issue has happened");
+    }
+});
+
+app.get("/fetch", (req, res) => {
+    const token = req.cookies["token"];
+    if (token) {
+        jwt.verify(token, process.env.JWT_TOKEN, {}, async (err, user) => {
+            if (err) {
+                throw err;
+            }
+
+            const { _id: id, email, name } = await User.findById(user.id);
+            res.json({ id, email, name });
+        });
+    } else {
+        res.json(null);
     }
 });
 

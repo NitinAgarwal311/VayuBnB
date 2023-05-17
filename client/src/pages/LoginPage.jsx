@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -7,6 +7,12 @@ export default function LoginPage() {
     const [password, setPassword] = useState("");
     const [redirect, setRedirect] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if(redirect) {
+            navigate('/');
+        }
+    }, [redirect, navigate]);
 
     const loginHandler = async (ev) => {
         ev.preventDefault();
@@ -23,10 +29,6 @@ export default function LoginPage() {
             alert("Login Failed");
         }
     };
-
-    if(redirect) {
-        navigate('/');
-    }
 
     return (
         <div className="mt-4 grow flex items-center justify-around">
