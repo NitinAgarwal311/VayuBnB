@@ -17,7 +17,7 @@ app.use(cookieParser());
 app.use(
     cors({
         credentials: true,
-        origin: "http://localhost:5176",
+        origin: "http://localhost:5173",
     })
 );
 
@@ -52,14 +52,22 @@ app.post("/login", async (req, res) => {
 
             if (passOk) {
                 jwt.sign(
-                    { id: userDoc._id, email: userDoc.email },
+                    {
+                        id: userDoc._id,
+                        email: userDoc.email,
+                        name: userDoc.name,
+                    },
                     process.env.JWT_TOKEN,
                     {},
                     (err, token) => {
                         if (err) {
                             throw err;
                         }
-                        res.cookie("token", token).json("login successful");
+                        res.cookie("token", token).json({
+                            id: userDoc._id,
+                            email: userDoc.email,
+                            name: userDoc.name,
+                        });
                     }
                 );
             } else {

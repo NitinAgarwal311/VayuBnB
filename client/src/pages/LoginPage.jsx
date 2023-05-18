@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { UserContext } from "../store/UserContext";
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [redirect, setRedirect] = useState(false);
     const navigate = useNavigate();
+    const {setUser} = useContext(UserContext);
 
     useEffect(() => {
         if(redirect) {
@@ -18,10 +20,12 @@ export default function LoginPage() {
         ev.preventDefault();
 
         try {
-            await axios.post("/login", {
+            const {data} = await axios.post("/login", {
                 email,
                 password,
             });
+
+            setUser(data);
             alert("Login Successful");
             setRedirect(true);
         }
