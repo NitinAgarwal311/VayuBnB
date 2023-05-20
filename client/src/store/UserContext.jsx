@@ -8,11 +8,13 @@ export const UserContext = createContext();
 
 const UserContextProvider = (props) => {
     const [user,setUser] = useState();
+    const [ready,setReady] = useState(false);
 
     useEffect(() => {
         axios.get("/fetch").then(res => {
             if(res !== null) {
                 setUser(res.data);
+                setReady(true);
             }
         }).catch(err => {
             console.log(err);
@@ -20,7 +22,7 @@ const UserContextProvider = (props) => {
     }, []);
 
     return (
-        <UserContext.Provider value={{user,setUser}}>
+        <UserContext.Provider value={{user,setUser,ready}}>
             {props.children}
         </UserContext.Provider>
     )

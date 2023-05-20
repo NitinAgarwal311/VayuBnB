@@ -26,6 +26,7 @@ export default function LoginPage() {
             });
 
             setUser(data);
+            
             alert("Login Successful");
             setRedirect(true);
         }
