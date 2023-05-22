@@ -1,18 +1,22 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../store/UserContext";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 export default function AccountPage() {
-    const { user, ready } = useContext(UserContext);
+    const { user, ready, setUser } = useContext(UserContext);
     const navigate = useNavigate();
+    const {redirect, setRedirect} = useState(null);
 
     let { subPath } = useParams();
+
+    useEffect(() => {
+        navigate(redirect);
+    }, [redirect,navigate]);
 
     if (subPath === undefined) {
         subPath = "profile";
     }
-
-    console.log(subPath);
 
     if (!ready) {
         return <div>Loading...</div>;
@@ -31,9 +35,15 @@ export default function AccountPage() {
         return classes;
     };
 
+    const logout = async () => {
+        await axios.post('/logout');
+        setUser(null);
+        setRedirect('/');
+    }
+
     return (
         <>
-            <nav className="w-full flex justify-center my-6 gap-8">
+            <nav className="w-full flex justify-center my-8 gap-8">
                 <Link to="/account" className={getLinkClasses("profile")}>
                     My Profile
                 </Link>
@@ -51,7 +61,13 @@ export default function AccountPage() {
                 </Link>
             </nav>
 
-            {subPath === "profile" && <div className="text-center text-2xl">{user.name}&apos;s Profile. Logged in as {user.email}</div>}
+            {subPath === "profile" && (
+                    <div className="max-w-lg text-center mx-auto">
+                        {user.name}&apos;s Profile. Logged in as {user.email}
+                        <button onClick={logout} className="primary">Logout</button>
+                    </div>
+                
+            )}
         </>
     );
 }
