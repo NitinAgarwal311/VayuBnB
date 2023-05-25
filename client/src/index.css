@@ -13,3 +13,11 @@ button {
 button.primary {
     @apply bg-[#F5385D] rounded-2xl my-2 mx-auto w-full p-2 text-white
 }
+
+h2.new-place {
+    @apply text-2xl mt-4
+}
+
+p.new-place {
+    @apply text-gray-500 text-sm
+}
