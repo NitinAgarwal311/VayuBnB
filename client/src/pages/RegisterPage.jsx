@@ -11,7 +11,7 @@ export default function RegisterPage() {
         event.preventDefault();
 
         try {
-            await axios.post("/register", {
+            await axios.post("/users/register", {
                 name,
                 email,
                 password

@@ -11,7 +11,7 @@ const UserContextProvider = (props) => {
     const [ready,setReady] = useState(false);
 
     useEffect(() => {
-        axios.get("/fetch").then(res => {
+        axios.get("/users/fetch").then(res => {
             if(res !== null) {
                 setUser(res.data);
                 setReady(true);

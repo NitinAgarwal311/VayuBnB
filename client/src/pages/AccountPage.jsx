@@ -27,7 +27,7 @@ export default function AccountPage() {
     };
 
     const logout = async () => {
-        await axios.post("/logout");
+        await axios.post("/users/logout");
         setUser(null);
         navigate("/");
     };

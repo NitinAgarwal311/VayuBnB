@@ -20,7 +20,7 @@ export default function LoginPage() {
         ev.preventDefault();
 
         try {
-            const {data} = await axios.post("/login", {
+            const {data} = await axios.post("/users/login", {
                 email,
                 password,
             });
