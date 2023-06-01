@@ -16,8 +16,6 @@ export default function PlacesPage() {
     const [checkOut, setCheckOut] = useState("");
     const [maxGuests, setMaxGuests] = useState("");
 
-    console.log(addedPhotos);
-
     const addPhotoByLink = async (ev) => {
         ev.preventDefault();
         const { data } = await axios.post("/newPage/upload-by-link", {
@@ -30,6 +28,29 @@ export default function PlacesPage() {
 
         setPhotoLink("");
     };
+
+    const uploadPhotoFiles = async (ev) => {
+        ev.preventDefault();
+        const files = ev.target.files;
+        console.log(files);
+
+        const formData = new FormData();
+
+        for(const [,file] of Object.entries(files)) {
+            formData.append("photos",file);
+        }
+
+        const {data} = await axios.post('/newPage/uploadFile', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+
+        setAddPhotos(prev => {
+            return [...prev, ...data];
+        });
+        
+    }
 
     return (
         <div>
@@ -97,15 +118,17 @@ export default function PlacesPage() {
                         <div className="mt-2 grid gap-2 grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
                             {addedPhotos.map((photo) => {
                                 return (
-                                    <img
-                                        key={photo}
-                                        src={`http://localhost:4000/uploads/${photo}`}
-                                        alt=""
-                                        className="rounded-2xl"
-                                    />
+                                    <div key={photo} className="flex w-full object-cover">
+                                        <img
+                                            src={`http://localhost:4000/uploads/${photo}`}
+                                            alt=""
+                                            className="rounded-2xl"
+                                        />
+                                    </div>
                                 );
                             })}
-                            <button className="border bg-transparent rounded-2xl p-8 text-2xl text-gray-600 flex justify-center items-center gap-1">
+                            <label className="border cursor-pointer bg-transparent rounded-2xl p-8 text-2xl text-gray-600 flex justify-center items-center gap-1">
+                                <input type="file" multiple className="hidden" onChange={uploadPhotoFiles}/>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -121,7 +144,7 @@ export default function PlacesPage() {
                                     />
                                 </svg>
                                 Upload
-                            </button>
+                            </label>
                         </div>
                         <h2 className="new-place">Description</h2>
                         <p className="new-place">description of your place</p>
