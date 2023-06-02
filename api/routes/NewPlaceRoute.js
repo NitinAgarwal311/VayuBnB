@@ -3,10 +3,46 @@ const imageDownloader = require("image-downloader");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const Photo = require("../models/Place");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+const cookieParser = require("cookie-parser");
+const Place = require("../models/Place");
 
 const router = express.Router();
 
 const parentDirectory = path.resolve(__dirname, "..");
+
+router.post("/", async (req, res) => {
+    const token = req.cookies["token"];
+    const {
+        title,
+        address,
+        addedPhotos,
+        description,
+        perks,
+        extraInfo,
+        checkIn,
+        checkOut,
+        maxGuests,
+    } = req.body;
+    jwt.verify(token, process.env.JWT_TOKEN, {}, async (err, user) => {
+        const placeDoc = await Place.create({
+            owner: user.id,
+            title,
+            address,
+            addedPhotos,
+            description,
+            perks,
+            extraInfo,
+            checkIn,
+            checkOut,
+            maxGuests,
+        });
+
+        res.json(placeDoc);
+    });
+});
 
 router.post("/upload-by-link", async (req, res) => {
     const { link } = req.body;
@@ -34,10 +70,10 @@ router.post("/uploadFile", upload.array("photos", 100), async (req, res) => {
         const newPath = path + "." + ext;
         console.log(newPath);
         fs.renameSync(path, newPath);
-        uploadedFiles.push(newPath.replace(parentDirectory + '/uploads/', ""));
+        uploadedFiles.push(newPath.replace(parentDirectory + "/uploads/", ""));
     });
 
     res.json(uploadedFiles);
 });
 
-exports.newPage = router;
+exports.newPlace = router;

@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const {users} = require("./routes/UserRoute");
-const {newPage} = require("./routes/NewPageRoute");
+const {newPlace} = require("./routes/NewPlaceRoute");
 
 const app = express();
 
@@ -19,7 +19,7 @@ app.use(
 );
 
 app.use('/users', users);
-app.use('/newPage', newPage);
+app.use('/newPlace', newPlace);
 app.use('/uploads',express.static(__dirname+'/uploads'));
 
 mongoose.connect(process.env.MONGO_URI);
