@@ -5,6 +5,7 @@ require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const {users} = require("./routes/UserRoute");
 const {newPlace} = require("./routes/NewPlaceRoute");
+const {places} = require("./routes/PlacesRoute");
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(
 
 app.use('/users', users);
 app.use('/newPlace', newPlace);
+app.use('/places',places);
 app.use('/uploads',express.static(__dirname+'/uploads'));
 
 mongoose.connect(process.env.MONGO_URI);

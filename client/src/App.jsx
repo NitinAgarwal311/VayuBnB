@@ -20,7 +20,14 @@ function App() {
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/register" element={<RegisterPage />} />
                     <Route path="/account" element={<ProfilePage />} />
-                    <Route path="/account/places/:action?" element={<PlacesPage />} />
+                    <Route
+                        path="/account/places/:action?"
+                        element={<PlacesPage />}
+                    />
+                    <Route
+                        path="/account/places/:id?"
+                        element={<PlacesPage />}
+                    />
                 </Route>
             </Routes>
         </UserContextProvider>

@@ -24,7 +24,7 @@ export default function NewPlaceForm() {
         const { data } = axios.post("/newPlace", {
             title,
             address,
-            addedPhotos,
+            photos: addedPhotos,
             description,
             perks,
             extraInfo,
@@ -57,7 +57,7 @@ export default function NewPlaceForm() {
                 type="text"
                 placeholder="Address"
                 value={address}
-                onChange={(ev) => setAddress(ev.target.setAddress)}
+                onChange={(ev) => setAddress(ev.target.value)}
             />
             <h2 className="new-place">Photos</h2>
             <p className="new-place">More = Better</p>

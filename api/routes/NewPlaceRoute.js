@@ -18,7 +18,7 @@ router.post("/", async (req, res) => {
     const {
         title,
         address,
-        addedPhotos,
+        photos,
         description,
         perks,
         extraInfo,
@@ -31,7 +31,7 @@ router.post("/", async (req, res) => {
             owner: user.id,
             title,
             address,
-            addedPhotos,
+            photos,
             description,
             perks,
             extraInfo,
@@ -63,12 +63,10 @@ router.post("/uploadFile", upload.array("photos", 100), async (req, res) => {
     const uploadedFiles = [];
 
     req.files.forEach((file) => {
-        console.log(file);
         const { path, originalname } = file;
         const parts = originalname.split(".");
         const ext = parts[parts.length - 1];
         const newPath = path + "." + ext;
-        console.log(newPath);
         fs.renameSync(path, newPath);
         uploadedFiles.push(newPath.replace(parentDirectory + "/uploads/", ""));
     });
