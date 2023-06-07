@@ -15,4 +15,9 @@ router.get("/", async (req,res) => {
     });
 });
 
+router.get("/:id", async (req,res) => {
+    const placeData = await Place.findById(req.params.id);
+    res.json(placeData);
+});
+
 exports.places = router;

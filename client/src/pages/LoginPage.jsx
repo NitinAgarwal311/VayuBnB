@@ -8,13 +8,13 @@ export default function LoginPage() {
     const [password, setPassword] = useState("");
     const [redirect, setRedirect] = useState(false);
     const navigate = useNavigate();
-    const {setUser} = useContext(UserContext);
+    const {user, setUser} = useContext(UserContext);
 
     useEffect(() => {
-        if(redirect) {
+        if(redirect || user) {
             navigate('/account');
         }
-    }, [redirect, navigate]);
+    }, [redirect, navigate, user]);
 
     const loginHandler = async (ev) => {
         ev.preventDefault();

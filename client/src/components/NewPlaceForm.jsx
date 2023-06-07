@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Perks from "./Perks";
 import PhotoUploader from "./PhotoUploader";
 
-export default function NewPlaceForm() {
+export default function NewPlaceForm({place}) {
     const [title, setTitle] = useState("");
     const [address, setAddress] = useState("");
     const [addedPhotos, setAddedPhotos] = useState([]);
@@ -14,9 +15,21 @@ export default function NewPlaceForm() {
     const [checkIn, setCheckIn] = useState("");
     const [checkOut, setCheckOut] = useState("");
     const [maxGuests, setMaxGuests] = useState("");
-
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if(place) {
+            setTitle(place.title);
+            setAddress(place.address);
+            setAddedPhotos(place.photos);
+            setDescription(place.description);
+            setPerks(place.perks);
+            setExtraInfo(place.extraInfo);
+            setCheckIn(place.checkIn);
+            setCheckOut(place.checkOut);
+            setMaxGuests(place.maxGuests);
+        }
+    }, [place])
 
     const newPlaceHandler = (ev) => {
         ev.preventDefault();
