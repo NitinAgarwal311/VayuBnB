@@ -34,7 +34,7 @@ export default function NewPlaceForm({place}) {
     const newPlaceHandler = (ev) => {
         ev.preventDefault();
 
-        const { data } = axios.post("/newPlace", {
+        const placeData = {
             title,
             address,
             photos: addedPhotos,
@@ -44,10 +44,15 @@ export default function NewPlaceForm({place}) {
             checkIn,
             checkOut,
             maxGuests,
-        });
+        };
 
-        console.log(data);
-
+        if(!place) {
+            axios.post("/newPlace", placeData);
+        }
+        else {
+            axios.put(`/places/${place._id}`, placeData);
+        }
+        
         navigate("/account/places");
     };
 
