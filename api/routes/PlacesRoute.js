@@ -15,6 +15,11 @@ router.get("/", async (req, res) => {
     });
 });
 
+router.get("/all", async(req,res) => {
+    const placesData = await Place.find({});
+    res.json(placesData);
+});
+
 router
     .route("/:id")
     .get(async (req, res) => {
