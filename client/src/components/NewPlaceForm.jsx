@@ -15,6 +15,7 @@ export default function NewPlaceForm({place}) {
     const [checkIn, setCheckIn] = useState("");
     const [checkOut, setCheckOut] = useState("");
     const [maxGuests, setMaxGuests] = useState("");
+    const [price, setPrice] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -28,6 +29,7 @@ export default function NewPlaceForm({place}) {
             setCheckIn(place.checkIn);
             setCheckOut(place.checkOut);
             setMaxGuests(place.maxGuests);
+            setPrice(place.price);
         }
     }, [place])
 
@@ -44,6 +46,7 @@ export default function NewPlaceForm({place}) {
             checkIn,
             checkOut,
             maxGuests,
+            price
         };
 
         if(!place) {
@@ -100,7 +103,7 @@ export default function NewPlaceForm({place}) {
             />
             <h2 className="new-place">Check In & Check Out</h2>
             <p>add check in and check out</p>
-            <div className="grid sm:grid-cols-3 gap-2">
+            <div className="grid sm:grid-cols-4 gap-2">
                 <div>
                     <h3 className="mt-2 -mb-1">Check In Time</h3>
                     <input
@@ -126,6 +129,15 @@ export default function NewPlaceForm({place}) {
                         placeholder="1"
                         value={maxGuests}
                         onChange={(ev) => setMaxGuests(ev.target.value)}
+                    />
+                </div>
+                <div>
+                    <h3 className="mt-2 -mb-1">Price Per Night</h3>
+                    <input
+                        type="number"
+                        placeholder="1"
+                        value={price}
+                        onChange={(ev) => setPrice(ev.target.value)}
                     />
                 </div>
             </div>

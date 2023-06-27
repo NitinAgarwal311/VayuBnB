@@ -43,6 +43,7 @@ router
                 checkIn,
                 checkOut,
                 maxGuests,
+                price
             } = req.body;
 
             const placeDoc = await Place.findById(req.params.id);
@@ -58,6 +59,7 @@ router
                     checkIn,
                     checkOut,
                     maxGuests,
+                    price
                 });
 
                 placeDoc.save();

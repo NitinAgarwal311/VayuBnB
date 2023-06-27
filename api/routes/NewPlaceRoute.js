@@ -25,6 +25,7 @@ router.post("/", async (req, res) => {
         checkIn,
         checkOut,
         maxGuests,
+        price
     } = req.body;
     jwt.verify(token, process.env.JWT_TOKEN, {}, async (err, user) => {
         const placeDoc = await Place.create({
@@ -38,6 +39,7 @@ router.post("/", async (req, res) => {
             checkIn,
             checkOut,
             maxGuests,
+            price
         });
 
         res.json(placeDoc);
