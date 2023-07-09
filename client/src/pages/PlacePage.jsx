@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import BookingWidget from "../components/BookingWidget";
 
 export default function PlacePage() {
     const { id } = useParams();
@@ -65,7 +66,7 @@ export default function PlacePage() {
     }
 
     return (
-        <div className="mt-8 bg-gray-100 -mx-4 px-4 py-8">
+        <div className="mt-8 bg-gray-100 -mx-4 px-4 pt-8">
             <h1 className=" text-3xl">{place.title}</h1>
             <a
                 target="_blank"
@@ -153,35 +154,26 @@ export default function PlacePage() {
                     Show All Photos
                 </button>
             </div>
-            <div className="my-4">
-                <h2 className="text-2xl font-semibold">Description</h2>
-                {place.description}
-            </div>
-            <div className="grid grid-cols-2">
+            <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] my-8 gap-8">
                 <div>
-                    Check In: {place.checkIn} <br/>
-                    Check Out: {place.checkOut} <br/>
-                    Max Guests: {place.maxGuests}
-                </div>
-                <div>
-                    <div className="bg-white shadow-md p-4 rounded-2xl">
-                        <h2 className="text-2xl text-center">Price: ${place.price}</h2>
-                        <div className="border rounded-2xl flex justify-around ">
-                            <div className="py-3 px-4">
-                                <label>Check In: </label>
-                                <input type="date" name="" id="" />
-                            </div>
-                            <div className="py-3 px-4 border-l-2">
-                                <label>Check Out: </label>
-                                <input type="date" name="" id="" />
-                            </div>
-
-                        </div>
-                        <button className="primary">Book this place</button>
+                    <div>
+                        <h2 className="text-2xl font-semibold">Description</h2>
+                        {place.description}
+                    </div>
+                    <div className="mt-4">
+                        Check In: {place.checkIn} <br />
+                        Check Out: {place.checkOut} <br />
+                        Max Guests: {place.maxGuests}
                     </div>
 
                 </div>
-
+                <div>
+                    <BookingWidget place={place} />
+                </div>
+            </div>
+            <div className="bg-white -mx-4 p-8">
+                <h2 className="text-2xl font-semibold">Extra Info</h2>
+                <p className="mb-4 mt-1 text-sm text-gray-700 leading-5">{place.extraInfo}</p>
             </div>
         </div>
     );
