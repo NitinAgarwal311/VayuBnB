@@ -105,6 +105,7 @@ export default function PlacePage() {
                                     place.photos[0]
                                 }
                                 className="aspect-square object-cover"
+                                onClick={() => {setShowAllPhotos(true)}}
                             ></img>
                         </div>
                     )}
@@ -117,6 +118,7 @@ export default function PlacePage() {
                                 place.photos[1]
                             }
                             className="aspect-square object-cover"
+                            onClick={() => {setShowAllPhotos(true)}}
                         ></img>
                     )}
                     <div className="overflow-hidden">
@@ -127,6 +129,7 @@ export default function PlacePage() {
                                     place.photos[2]
                                 }
                                 className="aspect-square object-cover relative top-2"
+                                onClick={() => {setShowAllPhotos(true)}}
                             ></img>
                         )}
                     </div>
