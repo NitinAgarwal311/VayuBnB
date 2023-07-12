@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const {users} = require("./routes/UserRoute");
 const {newPlace} = require("./routes/NewPlaceRoute");
 const {places} = require("./routes/PlacesRoute");
+const {bookings} = require("./routes/BookingsRoute");
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(
 app.use('/users', users);
 app.use('/newPlace', newPlace);
 app.use('/places',places);
+app.use('/bookings',bookings);
 app.use('/uploads',express.static(__dirname+'/uploads'));
 
 mongoose.connect(process.env.MONGO_URI);
