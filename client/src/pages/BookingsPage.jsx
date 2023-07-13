@@ -1,5 +1,9 @@
+import AccountNav from "../components/AccountNav";
+
 export default function BookingsPage() {
   return (
-    <div>BookingsPage</div>
+    <>
+        <AccountNav />
+    </>
   )
 }
