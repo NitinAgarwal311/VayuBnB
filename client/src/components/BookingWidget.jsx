@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { differenceInCalendarDays } from "date-fns";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../store/UserContext";
 
 export default function BookingWidget({ place }) {
     const [checkIn, setCheckIn] = useState("");
@@ -11,7 +12,12 @@ export default function BookingWidget({ place }) {
     const [numberOfGuests, setNumberOfGuests] = useState(1);
     const [name, setName] = useState("");
     const [mobileNumber, setMobileNumber] = useState("");
+    const { user } = useContext(UserContext);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        setName(user.name);
+    },[user])
 
     let numberOfNights = 0;
 
@@ -33,8 +39,8 @@ export default function BookingWidget({ place }) {
             price: numberOfGuests * place.price,
         });
 
-        if(response.status === 200) {
-            navigate(`/account/booking/${response.data._id}`);
+        if (response.status === 200) {
+            navigate(`/account/bookings`);
         }
     };
 
@@ -79,7 +85,7 @@ export default function BookingWidget({ place }) {
                     />
                 </div>
                 <div className="border-t-2 p-4">
-                    <label>Name</label>
+                    <label>Full Name</label>
                     <input
                         type="text"
                         value={name}

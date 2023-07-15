@@ -21,7 +21,7 @@ router
     .route("/")
     .get(async (req, res) => {
         const userData = await getUserDataFromReq(req);
-        const bookingsData = Booking.find({ user: userData.id });
+        const bookingsData = await Booking.find({ user: userData.id });
         return res.json(bookingsData);
     })
     .post(async (req, res) => {
@@ -39,7 +39,7 @@ router
         try {
             const doc = await Booking.create({
                 place,
-                id: userData.id,
+                user: userData.id,
                 checkIn,
                 checkOut,
                 numberOfGuests,
