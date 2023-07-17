@@ -21,7 +21,7 @@ router
     .route("/")
     .get(async (req, res) => {
         const userData = await getUserDataFromReq(req);
-        const bookingsData = await Booking.find({ user: userData.id });
+        const bookingsData = await Booking.find({ user: userData.id }).populate('place');
         return res.json(bookingsData);
     })
     .post(async (req, res) => {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import AccountNav from "../components/AccountNav";
 import axios from "axios";
+import PlaceImg from "../components/PlaceImg";
 
 export default function BookingsPage() {
     const [bookings, setBookings] = useState([]);
@@ -18,7 +19,12 @@ export default function BookingsPage() {
                 bookings.map((booking) => {
                     return (
                         <div key={booking._id}>
-                            {booking.checkIn} -&gt; {booking.checkOut}
+                            <div>
+                                <PlaceImg place={booking.place} />
+                            </div>
+                            <div>
+                                {booking.checkIn} -&gt; {booking.checkOut}
+                            </div>
                         </div>
                     );
                 })}
