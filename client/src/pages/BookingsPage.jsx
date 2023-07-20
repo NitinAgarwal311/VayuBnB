@@ -3,6 +3,7 @@ import AccountNav from "../components/AccountNav";
 import axios from "axios";
 import { format, differenceInCalendarDays } from "date-fns";
 import PlaceImg from "../components/PlaceImg";
+import { Link } from "react-router-dom";
 
 export default function BookingsPage() {
     const [bookings, setBookings] = useState([]);
@@ -19,7 +20,8 @@ export default function BookingsPage() {
             {bookings.length > 0 &&
                 bookings.map((booking) => {
                     return (
-                        <div
+                        <Link
+                            to={`/account/booking/${booking._id}`}
                             key={booking._id}
                             className="flex gap-4 bg-gray-200 rounded-2xl overflow-hidden"
                         >
@@ -54,7 +56,7 @@ export default function BookingsPage() {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     );
                 })}
         </div>
