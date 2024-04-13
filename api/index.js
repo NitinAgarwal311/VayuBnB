@@ -20,15 +20,15 @@ app.use(
     })
 );
 
-app.use('/users', users);
-app.use('/newPlace', newPlace);
-app.use('/places',places);
-app.use('/bookings',bookings);
-app.use('/uploads',express.static(__dirname+'/uploads'));
+app.use('/api/users', users);
+app.use('/api/newPlace', newPlace);
+app.use('/api/places',places);
+app.use('/api/bookings',bookings);
+app.use('/api/uploads',express.static(__dirname+'/uploads'));
 
 mongoose.connect(process.env.MONGO_URI);
 
-app.get("/test", (req, res) => {
+app.get("/api/test", (req, res) => {
     res.json("Test successful");
 });
 
