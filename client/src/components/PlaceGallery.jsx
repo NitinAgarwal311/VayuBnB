@@ -69,7 +69,7 @@ export default function PlaceGallery({ place }) {
             <div className="grid">
                 {place.photos?.[1] && (
                     <img
-                        src={"http://localhost:4000/uploads/" + place.photos[1]}
+                        src={place.photos[1]}
                         className="aspect-square object-cover"
                         onClick={() => {
                             setShowAllPhotos(true);
