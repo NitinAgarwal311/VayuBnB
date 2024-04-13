@@ -9,8 +9,8 @@ export default function PlaceImg({place, idx = 0, className = null}) {
     }
 
     return (
-        <img
-            src={`http://localhost:4000/uploads/${place.photos[idx]}`}
+        <Image
+            src={`${place.photos[idx]}`}
             className={className}
         />
     );

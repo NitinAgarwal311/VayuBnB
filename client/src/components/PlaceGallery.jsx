@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
+import Image from "./Image";
 
 export default function PlaceGallery({ place }) {
     const [showAllPhotos, setShowAllPhotos] = useState(false);
@@ -38,12 +39,10 @@ export default function PlaceGallery({ place }) {
                     {place.photos.length > 0 &&
                         place.photos.map((photo) => {
                             return (
-                                <img
+                                <Image
                                     className="object-cover m-auto"
                                     key={photo}
-                                    src={
-                                        "http://localhost:4000/uploads/" + photo
-                                    }
+                                    src={photo}
                                 />
                             );
                         })}
@@ -57,16 +56,13 @@ export default function PlaceGallery({ place }) {
             <div>
                 {place.photos?.[0] && (
                     <div>
-                        <img
-                            src={
-                                "http://localhost:4000/uploads/" +
-                                place.photos[0]
-                            }
+                        <Image
+                            src={place.photos[0]}
                             className="aspect-square object-cover"
                             onClick={() => {
                                 setShowAllPhotos(true);
                             }}
-                        ></img>
+                        />
                     </div>
                 )}
             </div>

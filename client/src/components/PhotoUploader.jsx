@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
 import { useState } from "react";
+import Image from "./Image";
 
 export default function PhotoUploader({ addedPhotos, onChange }) {
     const [photoLink, setPhotoLink] = useState("");
@@ -33,7 +34,7 @@ export default function PhotoUploader({ addedPhotos, onChange }) {
             },
         });
 
-        onChange([...addedPhotos, data]);
+        onChange([...addedPhotos, ...data]);
     };
 
     const removePhoto = (ev, photo) => {
@@ -64,18 +65,18 @@ export default function PhotoUploader({ addedPhotos, onChange }) {
                 </button>
             </div>
             <div className="mt-2 grid gap-2 grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-                {addedPhotos.map((photo) => {
+                {addedPhotos.length >0 && addedPhotos.map((link) => {
                     return (
-                        <div key={photo} className="flex relative">
-                            <img
-                                src={`http://localhost:4000/uploads/${photo}`}
+                        <div key={link} className="flex relative">
+                            <Image
+                                src={link}
                                 alt=""
                                 className="rounded-2xl w-full object-cover"
                             />
                             <button
                                 className="cursor-pointer absolute bottom-1 right-1 text-white bg-black py-2 px-4 bg-opacity-30 rounded-2xl"
                                 onClick={(ev) => {
-                                    removePhoto(ev, photo);
+                                    removePhoto(ev, link);
                                 }}
                             >
                                 <svg
@@ -96,13 +97,13 @@ export default function PhotoUploader({ addedPhotos, onChange }) {
                             <button
                                 className="cursor-pointer absolute bottom-1 left-1 text-white bg-black py-2 px-4 bg-opacity-30 rounded-2xl"
                                 onClick={(ev) => {
-                                    selectAsMainPhoto(ev, photo);
+                                    selectAsMainPhoto(ev, link);
                                 }}
-                                disabled={photo === addedPhotos[0]}
+                                disabled={link === addedPhotos[0]}
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    fill={photo === addedPhotos[0] ? "currentColor": "none"}
+                                    fill={link === addedPhotos[0] ? "currentColor": "none"}
                                     viewBox="0 0 24 24"
                                     strokeWidth={1.5}
                                     stroke="currentColor"
